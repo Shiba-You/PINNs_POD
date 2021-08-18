@@ -1,0 +1,6 @@
+cupy-cuda112
+ipykernel
+numpy
+pandas==1.1.5
+matplotlib==3.3.2
+psutil
