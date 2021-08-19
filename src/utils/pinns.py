@@ -4,7 +4,6 @@ import tensorflow as tf
 class PhysicsInformedNN:
     # Initialize the class
     def __init__(self, x, y, t, u, v, layers, rs, debug):
-        tf.set_random_seed(rs)
         self.debug = debug
 
         X = np.concatenate([x, y, t], 1)

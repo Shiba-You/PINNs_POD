@@ -1,22 +1,32 @@
 import pandas as pd
 import numpy as np
+from make_modes import make_modes
 
-def make_data(path, N_train):
-    U_star, P_star, Vor_star = read_data(path)
-    X_star, t_star, N, T     = init_data()
-        
+def make_data(**kwargs):
     '''
+    kwargs = {
+        path    : データまでのpath  
+        N_train : N*T*N_train が最終的なトレーニングデータ数となる
+        subject : どの物理量を対象にPOD分解を実施するのか
+        n_modes : 第何モードまでを対象とするのか
+        mode_th : 各モード諸条件の上位何%を教師データ候補群とするのか
+    }
+
     XX      = (N, T)      ,  YY      = (N, T)      ,  TT      = (N, T)      ,  UU      = (N, T)      ,  VV      = (N, T)      ,  PP      = (N, T)      
     x       = (N*T, 1)    ,  y       = (N*T, 1)    ,  t       = (N*T, 1)    ,  u       = (N*T, 1)    ,  v       = (N*T, 1)    ,  p       = (N*T, 1)    
     x_train = (N_train, 1),  y_train = (N_train, 1),  t_train = (N_train, 1),  u_train = (N_train, 1),  v_train = (N_train, 1),  p_train = (N_train, 1)
     '''
+    U_star, P_star, Vor_star             = read_data(kwargs["path"])
+    X_star, t_star, N, T, dx, dy, nx, ny = init_data()
+        
 
     XX = np.tile(X_star[:,0:1], (1,T)) # N x T
     YY = np.tile(X_star[:,1:2], (1,T)) # N x T
     TT = np.tile(t_star, (1,N)).T # N x T
     UU = U_star[:,0].reshape(T, N).T            # N x T X軸方向速度
     VV = - U_star[:,1].reshape(T, N).T        # N x T Y軸方向速度
-    PP = P_star.reshape(T, N).T 
+    PP = P_star.reshape(T, N).T
+    WW = Vor_star[:,0].reshape(T, N).T            # N x T X軸方向速度
 
     x = XX.flatten()[:,None] # NT x 1
     y = YY.flatten()[:,None] # NT x 1
@@ -25,7 +35,13 @@ def make_data(path, N_train):
     v = VV.flatten()[:,None] # NT x 1
     p = PP.flatten()[:,None] # NT x 1
 
-    idx = np.random.choice(N*T, int(N_train * N * T), replace=False)
+    if kwargs["n_modes"] != 0:
+        subject = eval(kwargs["subject"])
+        cand_idx = make_modes(subject, kwargs["n_modes"], N, T, kwargs["mode_th"], dx, dy, nx, ny)
+        idx = np.random.choice(cand_idx, int(kwargs["N_train"]*N*T), replace=False)
+        idx = idx.astype("int64")
+    else:
+        idx = np.random.choice(N*T, int(kwargs["N_train"]*N*T), replace=False)
     x_train = x[idx,:]
     y_train = y[idx,:]
     t_train = t[idx,:]
@@ -61,7 +77,7 @@ def init_data():
     N = X_star.shape[0]
     T = t_star.shape[0]
 
-    return X_star, t_star, N, T
+    return X_star, t_star, N, T, dx, dy, nx, ny
 
 def log(x_train, y_train, t_train, u_train, v_train):
     print("x_train : ", x_train.shape)
@@ -69,3 +85,4 @@ def log(x_train, y_train, t_train, u_train, v_train):
     print("t_train : ", t_train.shape)
     print("u_train : ", u_train.shape)
     print("v_train : ", v_train.shape)
+

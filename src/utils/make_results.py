@@ -1,18 +1,36 @@
 import os
 import datetime
 from make_images import make_image
-import numpy as np 
+import numpy as np
 
-def make_results(train_rate, model, X_star, TT, snap, UU, VV, PP, N_train, Itration, elps, rs):
-    dir_name = make_dir(train_rate)
+
+def make_results(pro, subject, train_rate, model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs):
+    dir_name = make_dir(pro, subject, train_rate)
     u_pred, v_pred, p_pred, u_star, v_star, p_star, error_u, error_v, error_p, error_lambda_1, error_lambda_2, N, T = model_pred(model, X_star, TT, snap, UU, VV, PP)
     train_data = N * T * N_train
-    make_info(dir_name, Itration, train_rate, elps, rs, error_u, error_v, error_p, error_lambda_1, error_lambda_2, train_data)
+    make_info(dir_name=dir_name, \
+            project=pro, \
+            subject=subject, \
+            Itration=Itration, \
+            random_seed=rs,\
+            train_rate=train_rate, \
+            train_data=train_data, \
+            n_modes=n_modes, \
+            mode_th=mode_th, \
+            elps=elps, \
+            error_u=error_u,\
+            error_v=error_v,\
+            error_p=error_p,\
+            error_lambda_1=error_lambda_1,\
+            error_lambda_2=error_lambda_2
+    )
     make_image(X_star, snap, dir_name, u_pred, v_pred, p_pred, u_star, v_star, p_star)
 
 
-def make_dir(train_rate):
-    dir_name = "Basic_{}_{}".format(train_rate, str(datetime.date.today()))
+def make_dir(pro, subject, train_rate):
+    dir_name = "{}/{}_{}_{}".format(pro, subject, train_rate, str(datetime.date.today()))
+    if not os.path.exists(pro):
+        os.mkdir(pro)
     if not os.path.exists(dir_name):#ディレクトリがなかったら
         os.mkdir(dir_name)#作成したいフォルダ名を作成
     return dir_name
@@ -41,24 +59,22 @@ def model_pred(model, X_star, TT, snap, UU, VV, PP):
 
     return u_pred, v_pred, p_pred, u_star, v_star, p_star, error_u, error_v, error_p, error_lambda_1, error_lambda_2, N, T
 
-def make_info(dir_name, Itration, train_rate, elps, rs, error_u, error_v, error_p, error_lambda_1, error_lambda_2, train_data):
+def make_info(**kwargs):
 
-    f = open(dir_name+"/info.txt", "a", encoding="UTF-8")
+    f = open(kwargs["dir_name"]+"/info.txt", "a", encoding="UTF-8")
+    kwargs.pop("dir_name")
     f.write("\n")
     f.write("********************************\n")
     f.write("********************************\n")
-    f.write("Date       : {} \n".format(str(datetime.date.today())))
-    f.write("Itration   : {} \n".format(Itration))
-    f.write("train rate : {} \n".format(train_rate))
-    f.write("train data : {} \n".format(train_data))
-    f.write("Time       : {} \n".format(elps))
-    f.write("seed       : {} \n".format(rs))
-    f.write("================================\n")
-    f.write("============Error===============\n")
-    f.write('Error u  : %e \n' % (error_u))    
-    f.write('Error v  : %e \n' % (error_v))    
-    f.write('Error p  : %e \n' % (error_p))   
-    f.write('Error l1 : %.5f%% \n' % (error_lambda_1))                             
-    f.write('Error l2 : %.5f%% \n' % (error_lambda_2))   
+    f.write("Date".ljust(15) + ": {} \n".format(str(datetime.datetime.now())))
+    for key, val in kwargs.items():
+        if key == "error_u" or key == "error_v" or key == "error_p" or key == "elps":
+            f.write(key.ljust(15) + ': %e \n' % (val))
+        elif key == "error_l1" or key == "error_l2":
+            f.write(key.ljust(15) + ': %.5f%% \n' % (val))
+        else:
+            f.write(key.ljust(15) + ': {} \n'.format(val))
+            if key == "mode_th":
+                f.write("============Results==============\n")   
     f.write("********************************\n")
     f.close()
