@@ -1,0 +1,20 @@
+
+********************************
+********************************
+Date           : 2021-08-20 13:09:07.694013 
+project        : asymmetric_squares 
+subject        : UU 
+Itration       : 100000 
+random_seed    : 1234 
+train_rate     : 0.5 
+train_data     : 12251.25 
+n_modes        : 0 
+mode_th        : 0.05 
+============Results==============
+elps           : 1.073986e+02 
+error_u        : 2.820996e-02 
+error_v        : 3.274544e-02 
+error_p        : 3.270347e+00 
+error_lambda_1 : 0.35297% 
+error_lambda_2 : 14.35546% 
+********************************
