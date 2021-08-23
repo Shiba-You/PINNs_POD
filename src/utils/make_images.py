@@ -78,3 +78,23 @@ def make_image(X_star, snap, dir_name, u_pred, v_pred, p_pred, u_star, v_star, p
     fig_name = dir_name + "/{}_Snap.png".format(snap)
 
     fig.savefig(fig_name)
+
+
+def make_loss_translation(dir_name, model):
+    fig = plt.figure(figsize=(16, 3))
+    plt.xlabel("itr #")
+    plt.ylabel("loss")
+    plt.yscale("log")
+    #plt.ylim(0, 10 ** 7)
+
+    print("final loss values;")
+    print(model.loss_log[-1])
+    print(model.loss_pred_log[-1])
+    print(model.loss_phys_log[-1])
+
+    plt.plot(model.loss_log,      label = "loss")
+    plt.plot(model.loss_pred_log, label = "loss_pred", linestyle = ":")
+    plt.plot(model.loss_phys_log, label = "loss_phys", linestyle = ":")
+    plt.legend(loc = "upper right")
+    fig_name = dir_name + "/translation.png"
+    fig.savefig(fig_name)

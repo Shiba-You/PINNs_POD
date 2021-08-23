@@ -1,0 +1,20 @@
+
+********************************
+********************************
+Date           : 2021-08-21 00:16:02.838735 
+project        : circle 
+subject        : UU 
+Itration       : 100000 
+random_seed    : 1234 
+train_rate     : 0.5 
+train_data     : 122512.5 
+n_modes        : 0 
+mode_th        : 0.05 
+============Results==============
+elps           : 5.460470e+02 
+error_u        : 7.379606e-03 
+error_v        : 2.008275e-02 
+error_p        : 1.361616e+01 
+error_lambda_1 : 0.26486% 
+error_lambda_2 : 22.24656% 
+********************************

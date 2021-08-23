@@ -3,27 +3,26 @@ import tensorflow as tf
 
 class PhysicsInformedNN:
     # Initialize the class
-    def __init__(self, x, y, t, u, v, layers, rs, debug):
+    def __init__(self, x, y, t, u, v, layers, debug):
         self.debug = debug
 
         X = np.concatenate([x, y, t], 1)
         
-        self.lb = X.min(0)
-        self.ub = X.max(0)
-                
+        self.lb = X.min(0); self.ub = X.max(0)
         self.X = X
+        self.x = X[:,0:1]; self.y = X[:,1:2]; self.t = X[:,2:3]
         
-        self.x = X[:,0:1]
-        self.y = X[:,1:2]
-        self.t = X[:,2:3]
-        
-        self.u = u
-        self.v = v
+        self.u = u; self.v = v
         
         self.layers = layers
         
         # Initialize NN
-        self.weights, self.biases = self.initialize_NN(layers)        
+        self.weights, self.biases = self.initialize_NN(layers) 
+
+        # track loss values
+        self.loss_log      = np.array([])
+        self.loss_pred_log = np.array([])
+        self.loss_phys_log = np.array([])       
         
         # Initialize parameters
         self.lambda_1 = tf.Variable([0.0], dtype=tf.float32)
@@ -42,10 +41,9 @@ class PhysicsInformedNN:
         
         self.u_pred, self.v_pred, self.p_pred, self.f_u_pred, self.f_v_pred = self.net_NS(self.x_tf, self.y_tf, self.t_tf)
         
-        self.loss = tf.reduce_sum(tf.square(self.u_tf - self.u_pred)) + \
-                    tf.reduce_sum(tf.square(self.v_tf - self.v_pred)) + \
-                    tf.reduce_sum(tf.square(self.f_u_pred)) + \
-                    tf.reduce_sum(tf.square(self.f_v_pred))
+        self.loss_pred = (tf.reduce_sum(tf.square(self.u_tf - self.u_pred)) + tf.reduce_sum(tf.square(self.v_tf - self.v_pred)))
+        self.loss_phys = (tf.reduce_sum(tf.square(self.f_u_pred)) + tf.reduce_sum(tf.square(self.f_v_pred)))
+        self.loss      = self.loss_pred + self.loss_phys
 
                     
         self.optimizer = tf.contrib.opt.ScipyOptimizerInterface(self.loss, 
@@ -122,28 +120,37 @@ class PhysicsInformedNN:
 
         return u, v, p, f_u, f_v
 
-    def callback(self, loss, lambda_1, lambda_2):
+    def callback(self, loss, loss_pred, loss_phys):
         if self.debug:
-            print('Loss: %.3e, l1: %.5f, l2: %.7f' % (loss, lambda_1, lambda_2))
+            print('loss: %.6e, loss_pred: %.6e, loss_phys: %.6e' % (loss, loss_pred, loss_phys))
         else:
             print(".", end="")
 
-    def train(self, nIter): 
+    def train(self, nIter, tol=1e-5): 
         tf_dict = {self.x_tf: self.x, self.y_tf: self.y, self.t_tf: self.t,
                    self.u_tf: self.u, self.v_tf: self.v}
 
         for it in range(nIter):
             self.sess.run(self.train_op_Adam, tf_dict)
 
+            self.loss_pred_log = np.append(self.loss_pred_log, np.array([self.sess.run(self.loss_pred, tf_dict)]))
+            self.loss_phys_log = np.append(self.loss_phys_log, np.array([self.sess.run(self.loss_phys, tf_dict)]))
+            self.loss_log      = np.append(self.loss_log,      np.array([self.sess.run(self.loss,      tf_dict)]))
+
             if it % 10 == 0:
-                loss_value = self.sess.run(self.loss, tf_dict)
+                loss_pred_val  = self.sess.run(self.loss_pred, tf_dict)
+                loss_phys_val  = self.sess.run(self.loss_phys, tf_dict)
+                loss_val       = self.sess.run(self.loss,      tf_dict)
+
                 lambda_1_value = self.sess.run(self.lambda_1)
                 lambda_2_value = self.sess.run(self.lambda_2)
                 if self.debug:
-                    print('It: %d, Loss: %.6e, l1: %.6f, l2: %.6f' % 
-                        (it, loss_value, lambda_1_value, lambda_2_value))
+                    print('it: %d, loss: %.6e, loss_pred: %.6e, loss_phys: %.6e' % (it, loss_val, loss_pred_val, loss_phys_val))
                 else:
                     print(".", end="")
+            if loss_val < tol:
+                print(">>>>> program terminating with the loss reaching its tolerance.")
+                break
                 
         
         self.optimizer.minimize(self.sess,

@@ -1,6 +1,7 @@
 import os
 import datetime
 from make_images import make_image
+from make_images import make_loss_translation
 import numpy as np
 
 
@@ -25,6 +26,8 @@ def make_results(pro, subject, train_rate, model, X_star, TT, snap, UU, VV, PP, 
             error_lambda_2=error_lambda_2
     )
     make_image(X_star, snap, dir_name, u_pred, v_pred, p_pred, u_star, v_star, p_star)
+    make_loss_translation(dir_name, model)
+
 
 
 def make_dir(pro, subject, train_rate):
@@ -70,7 +73,7 @@ def make_info(**kwargs):
     for key, val in kwargs.items():
         if key == "error_u" or key == "error_v" or key == "error_p" or key == "elps":
             f.write(key.ljust(15) + ': %e \n' % (val))
-        elif key == "error_l1" or key == "error_l2":
+        elif key == "error_lambda_1" or key == "error_lambda_2":
             f.write(key.ljust(15) + ': %.5f%% \n' % (val))
         else:
             f.write(key.ljust(15) + ': {} \n'.format(val))
