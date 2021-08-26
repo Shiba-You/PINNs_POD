@@ -37,8 +37,7 @@ path = "../../../data/{}/".format(pro)
 layers = [3, 20, 20, 20, 20, 20, 20, 20, 20, 2]
 Itration = 2*10**5
 rs = 1234
-train_rate = 0.1
-N_train = .01 * train_rate
+N_train = .001
 
 n_modes = 0
 subject = "UU"
@@ -66,7 +65,7 @@ send_line('解析終了')
 
 
 # %%
-make_results(pro, subject, train_rate, model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs)
+make_results(pro, subject model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs)
 
 
 # %%

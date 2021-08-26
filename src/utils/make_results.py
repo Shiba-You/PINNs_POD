@@ -5,16 +5,15 @@ from make_images import make_loss_translation
 import numpy as np
 
 
-def make_results(pro, subject, train_rate, model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs):
-    dir_name = make_dir(pro, subject, train_rate)
+def make_results(pro, subject, model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs):
+    dir_name = make_dir(pro, subject, N_train)
     u_pred, v_pred, p_pred, u_star, v_star, p_star, error_u, error_v, error_p, error_lambda_1, error_lambda_2, N, T = model_pred(model, X_star, TT, snap, UU, VV, PP)
-    train_data = N * T * N_train
+    train_data = int(N * T * N_train)
     make_info(dir_name=dir_name, \
             project=pro, \
             subject=subject, \
             Itration=Itration, \
             random_seed=rs,\
-            train_rate=train_rate, \
             train_data=train_data, \
             n_modes=n_modes, \
             mode_th=mode_th, \

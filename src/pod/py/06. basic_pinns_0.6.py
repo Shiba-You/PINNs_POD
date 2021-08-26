@@ -34,17 +34,16 @@ get_ipython().run_line_magic('autoreload', '')
 mode_th : 各モード諸条件の上位何%を教師データ候補群とするのか
 '''
 
-pro = "asymmetric_squares"
+pro = "circle"
 path = "../../../data/{}/".format(pro)
 
 layers = [3, 20, 20, 20, 20, 20, 20, 20, 20, 2]
 Itration = 2*10**5
 rs = 1234
-train_rate = 0.6
-N_train = .01 * train_rate
+N_train = .006
 
 n_modes = 0
-subject = "UU"
+subject = "basic"
 mode_th = .05
 
 
@@ -60,7 +59,7 @@ X_star, x_train, y_train, t_train, u_train, v_train, TT, UU, VV, PP = make_data(
 
 # %%
 t1 = time.time()
-model = PhysicsInformedNN(x_train, y_train, t_train, u_train, v_train, layers, rs, debug)
+model = PhysicsInformedNN(x_train, y_train, t_train, u_train, v_train, layers, debug)
 model.train(Itration)
 t2 = time.time()
 elps = (t2 - t1) / 60.
@@ -69,7 +68,7 @@ send_line('解析終了')
 
 
 # %%
-make_results(pro, subject, train_rate, model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs)
+make_results(pro, subject, model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs)
 
 
 # %%
