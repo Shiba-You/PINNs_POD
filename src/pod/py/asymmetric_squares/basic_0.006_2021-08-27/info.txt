@@ -7,7 +7,7 @@ subject        : UU
 Itration       : 200000 
 random_seed    : 1234 
 train_rate     : 0.6 
-train_data     : 147015.0 
+train_data     : 5940
 n_modes        : 0 
 mode_th        : 0.05 
 ============Results==============
