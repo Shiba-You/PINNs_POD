@@ -64,7 +64,7 @@ send_line('解析終了')
 
 
 # %%
-make_results(pro, subject, model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs, ns_lv)
+make_results(pro, subject, model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs, ns_lv, alpha)
 
 
 # %%
