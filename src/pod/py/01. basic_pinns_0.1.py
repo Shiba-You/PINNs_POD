@@ -1,13 +1,11 @@
 # To add a new cell, type '# %%'
 # To add a new markdown cell, type '# %% [markdown]'
 # %%
-from IPython import get_ipython
-
-# %%
 import sys
 sys.path.append("../../utils")
 import warnings
 warnings.simplefilter('ignore')
+import importlib
 
 
 from pinns import PhysicsInformedNN
@@ -22,8 +20,7 @@ import time
 
 
 # %%
-get_ipython().run_line_magic('autoreload', '')
-
+# importlib.reload()
 
 # %%
 '''
@@ -34,10 +31,12 @@ mode_th : 各モード諸条件の上位何%を教師データ候補群とする
 pro = "circle"
 path = "../../../data/{}/".format(pro)
 
-layers = [3, 20, 20, 20, 20, 20, 20, 20, 20, 2]
+layers = [3] + 8 * [20] + [2]
 Itration = 2*10**5
 rs = 1234
 N_train = .001
+
+ns_lv = 0
 
 n_modes = 0
 subject = "UU"
@@ -45,7 +44,7 @@ mode_th = .05
 
 
 snap = [10]
-debug = True
+debug = False
 np.random.seed(rs)
 tf.set_random_seed(rs)
 

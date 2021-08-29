@@ -3,7 +3,7 @@ import tensorflow as tf
 
 class PhysicsInformedNN:
     # Initialize the class
-    def __init__(self, x, y, t, u, v, layers, debug):
+    def __init__(self, x, y, t, u, v, layers, debug, alpha=.5):
         self.debug = debug
 
         X = np.concatenate([x, y, t], 1)
@@ -41,8 +41,8 @@ class PhysicsInformedNN:
         
         self.u_pred, self.v_pred, self.p_pred, self.f_u_pred, self.f_v_pred = self.net_NS(self.x_tf, self.y_tf, self.t_tf)
         
-        self.loss_pred = (tf.reduce_sum(tf.square(self.u_tf - self.u_pred)) + tf.reduce_sum(tf.square(self.v_tf - self.v_pred)))
-        self.loss_phys = (tf.reduce_sum(tf.square(self.f_u_pred)) + tf.reduce_sum(tf.square(self.f_v_pred)))
+        self.loss_pred = alpha       * (tf.reduce_sum(tf.square(self.u_tf - self.u_pred)) + tf.reduce_sum(tf.square(self.v_tf - self.v_pred)))
+        self.loss_phys = (1 - alpha) * (tf.reduce_sum(tf.square(self.f_u_pred)) + tf.reduce_sum(tf.square(self.f_v_pred)))
         self.loss      = self.loss_pred + self.loss_phys
 
                     
@@ -146,6 +146,8 @@ class PhysicsInformedNN:
                 lambda_2_value = self.sess.run(self.lambda_2)
                 if self.debug:
                     print('it: %d, loss: %.6e, loss_pred: %.6e, loss_phys: %.6e' % (it, loss_val, loss_pred_val, loss_phys_val))
+                elif it % 200 == 0:
+                    print(".\n", end="")
                 else:
                     print(".", end="")
             if loss_val < tol:

@@ -88,7 +88,7 @@ def log(x_train, y_train, t_train, u_train, v_train):
 
 
 
-def make_test_data(**kwargs):
+def make_noisy_data(**kwargs):
     '''
     kwargs = {
         path    : データまでのpath  
