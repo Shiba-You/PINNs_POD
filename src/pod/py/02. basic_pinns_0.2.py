@@ -48,7 +48,7 @@ mode_th = .05
 
 
 snap = [10]
-debug = False
+debug = True
 np.random.seed(rs)
 tf.set_random_seed(rs)
 

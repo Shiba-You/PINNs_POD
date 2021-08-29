@@ -98,3 +98,73 @@ def make_loss_translation(dir_name, model):
     plt.legend(loc = "upper right")
     fig_name = dir_name + "/translation.png"
     fig.savefig(fig_name)
+
+
+def test_images(X_star, snap, dir_name, u_star, v_star, p_star):
+    # 2D用データ
+    lb = X_star.min(0)
+    ub = X_star.max(0)
+    nn = 200
+    x = np.linspace(lb[0], ub[0], nn)
+    y = np.linspace(lb[1], ub[1], nn)
+    X, Y = np.meshgrid(x,y)
+    fig = plt.figure(figsize=(10, 20))
+    grid = ImageGrid(fig, 111, nrows_ncols=(1, 3), axes_pad=0.5, label_mode='L',
+            cbar_location='right', cbar_mode='each', cbar_pad=0.2) 
+    U_star = griddata(X_star, u_star.flatten(), (X, Y), method='cubic')
+    V_star = griddata(X_star, v_star.flatten(), (X, Y), method='cubic')
+    P_star = griddata(X_star, p_star.flatten(), (X, Y), method='cubic')
+    
+    u_star_min = str(round(np.amin(u_star), 3))
+    u_star_max = str(round(np.amax(u_star), 3))
+    v_star_min = str(round(np.amin(v_star), 3))
+    v_star_max = str(round(np.amax(v_star), 3))
+    p_star_min = str(round(np.amin(p_star), 3))
+    p_star_max = str(round(np.amax(p_star), 3))
+    
+    # 2D表示用
+    im = grid[0].pcolor(X, Y, U_star, cmap='coolwarm', norm=Normalize(vmin=u_star_min, vmax=u_star_max))
+    grid[0].set_title('U Star'.format(snap))
+    cbar = grid.cbar_axes[0].colorbar(im)
+
+    im = grid[1].pcolor(X, Y, V_star, cmap='coolwarm', norm=Normalize(vmin=v_star_min, vmax=v_star_max))
+    grid[1].set_title('V Star'.format(snap))
+    cbar = grid.cbar_axes[1].colorbar(im)
+    
+    im = grid[2].pcolor(X, Y, P_star, cmap='coolwarm', norm=Normalize(vmin=p_star_min, vmax=p_star_max))
+    grid[2].set_title('P Star'.format(snap))
+    cbar = grid.cbar_axes[2].colorbar(im)
+    cbar.set_clim(p_star_min, p_star_max)
+
+    plt.show()
+
+    fig_name = dir_name + "/{}_Snap.png".format(snap)
+
+    fig.savefig(fig_name)
+
+def test_image(X_star, snap, dir_name, star):
+    # 2D用データ
+    lb = X_star.min(0)
+    ub = X_star.max(0)
+    nn = 200
+    x = np.linspace(lb[0], ub[0], nn)
+    y = np.linspace(lb[1], ub[1], nn)
+    X, Y = np.meshgrid(x,y)
+    fig = plt.figure(figsize=(10, 20))
+    grid = ImageGrid(fig, 111, nrows_ncols=(1, 1), axes_pad=0.5, label_mode='L',
+            cbar_location='right', cbar_mode='each', cbar_pad=0.2) 
+    Star = griddata(X_star, star.flatten(), (X, Y), method='cubic')
+
+    star_min = str(round(np.amin(star), 3))
+    star_max = str(round(np.amax(star), 3))
+    
+    # 2D表示用
+    im = grid[0].pcolor(X, Y, Star, cmap='coolwarm', norm=Normalize(vmin=star_min, vmax=star_max))
+    grid[0].set_title('{} snap'.format(snap))
+    cbar = grid.cbar_axes[0].colorbar(im)
+
+    plt.show()
+
+    fig_name = dir_name + "/{}_Snap.png".format(snap)
+
+    fig.savefig(fig_name)

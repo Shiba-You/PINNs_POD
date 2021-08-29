@@ -45,7 +45,7 @@ mode_th = .05
 
 
 snap = [10]
-debug = False
+debug = True
 np.random.seed(rs)
 tf.set_random_seed(rs)
 
@@ -65,7 +65,7 @@ send_line('解析終了')
 
 
 # %%
-make_results(pro, subject model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs)
+make_results(pro, subject, model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs)
 
 
 # %%

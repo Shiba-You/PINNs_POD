@@ -4,4 +4,7 @@
 /.venv_cuda/
 
 # notebook形式
-/**/pynb
+/**/.pynb
+
+# テストで出力した画像はいらない
+/output/test/

@@ -38,6 +38,7 @@ pro = "circle"
 path = "../../../data/{}/".format(pro)
 
 layers = [3, 20, 20, 20, 20, 20, 20, 20, 20, 2]
+# layers = [3] + 8 * [20] + [2]
 Itration = 2*10**5
 rs = 1234
 N_train = .004
