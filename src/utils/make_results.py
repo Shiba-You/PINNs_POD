@@ -5,8 +5,8 @@ from make_images import make_loss_translation
 import numpy as np
 
 
-def make_results(pro, subject, model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs, ns_lv):
-    dir_name = make_dir(pro, subject, N_train, ns_lv)
+def make_results(pro, subject, model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs, ns_lv, alpha):
+    dir_name = make_dir(pro, subject, N_train, ns_lv, alpha)
     u_pred, v_pred, p_pred, u_star, v_star, p_star, error_u, error_v, error_p, error_lambda_1, error_lambda_2, N, T = model_pred(model, X_star, TT, snap, UU, VV, PP)
     train_data = int(N * T * N_train)
     make_info(dir_name=dir_name, \
@@ -16,6 +16,7 @@ def make_results(pro, subject, model, X_star, TT, snap, UU, VV, PP, n_modes, mod
             random_seed=rs,\
             train_data=train_data, \
             ns_lv=ns_lv, \
+            alpha=alpha, \
             n_modes=n_modes, \
             mode_th=mode_th, \
             elps=elps, \
@@ -30,9 +31,9 @@ def make_results(pro, subject, model, X_star, TT, snap, UU, VV, PP, n_modes, mod
 
 
 
-def make_dir(pro, subject, train_rate, ns_lv):
+def make_dir(pro, subject, train_rate, ns_lv, alpha):
     dir_pro = "../../../output/{}".format(pro)
-    dir_name = dir_pro + "/{}_{}_{}_{}".format(subject, train_rate, ns_lv, str(datetime.date.today()))
+    dir_name = dir_pro + "/{}_{}_{}_{}_{}".format(subject, train_rate, ns_lv, alpha, str(datetime.date.today()))
     if not os.path.exists(pro):
         os.mkdir(pro)
     if not os.path.exists(dir_name):#ディレクトリがなかったら

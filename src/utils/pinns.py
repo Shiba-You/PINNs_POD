@@ -45,6 +45,7 @@ class PhysicsInformedNN:
         self.loss_phys = (1 - alpha) * (tf.reduce_sum(tf.square(self.f_u_pred)) + tf.reduce_sum(tf.square(self.f_v_pred)))
         self.loss      = self.loss_pred + self.loss_phys
 
+
                     
         self.optimizer = tf.contrib.opt.ScipyOptimizerInterface(self.loss, 
                                                                 method = 'L-BFGS-B', 
