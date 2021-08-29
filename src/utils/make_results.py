@@ -31,7 +31,8 @@ def make_results(pro, subject, model, X_star, TT, snap, UU, VV, PP, n_modes, mod
 
 
 def make_dir(pro, subject, train_rate, ns_lv):
-    dir_name = "../../../output/{}/{}_{}_{}_{}".format(pro, subject, train_rate, ns_lv, str(datetime.date.today()))
+    dir_pro = "../../../output/{}".format(pro)
+    dir_name = dir_pro + "/{}_{}_{}_{}".format(subject, train_rate, ns_lv, str(datetime.date.today()))
     if not os.path.exists(pro):
         os.mkdir(pro)
     if not os.path.exists(dir_name):#ディレクトリがなかったら

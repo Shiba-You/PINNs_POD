@@ -33,7 +33,7 @@ path = "../../../data/{}/".format(pro)
 layers = [3] + 8 * [20] + [2]
 Itration = 1*10**5
 rs = 1234
-N_train = .0001
+N_train = .001
 
 ns_lv = 0
 alpha = .25
