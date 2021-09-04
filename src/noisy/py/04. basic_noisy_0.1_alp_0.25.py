@@ -71,3 +71,5 @@ make_results(pro, subject, model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th
 
 
 
+
+# %%

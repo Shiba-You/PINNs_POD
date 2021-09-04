@@ -96,7 +96,41 @@ def make_loss_translation(dir_name, model):
     plt.plot(model.loss_pred_log, label = "loss_pred", linestyle = ":")
     plt.plot(model.loss_phys_log, label = "loss_phys", linestyle = ":")
     plt.legend(loc = "upper right")
-    fig_name = dir_name + "/translation.png"
+    fig_name = dir_name + "/loss_translation.png"
+    fig.savefig(fig_name)
+
+
+def make_rhoi_translation(dir_name, model):
+    fig = plt.figure(figsize=(16, 3))
+    plt.xlabel("itr #")
+    plt.ylabel("rhoi")
+    plt.yscale("log")
+    #plt.ylim(0, 10 ** 7)
+
+    print("final loss values;")
+    print(model.rhoi_log[-1])
+
+    plt.plot(model.rhoi_log,                    label = "pre")
+    plt.vlines(1., 0, len(model.rhoi_log),      label = "ref")
+    plt.legend(loc = "upper right")
+    fig_name = dir_name + "/rhoi_translation.png"
+    fig.savefig(fig_name)
+
+
+def make_nu_translation(dir_name, model):
+    fig = plt.figure(figsize=(16, 3))
+    plt.xlabel("itr #")
+    plt.ylabel("nu")
+    plt.yscale("log")
+    #plt.ylim(0, 10 ** 7)
+
+    print("final loss values;")
+    print(model.nu_log[-1])
+
+    plt.plot(model.nu_log,                    label = "pre")
+    plt.vlines(1., 0, len(model.nu_log),      label = "ref")
+    plt.legend(loc = "upper right")
+    fig_name = dir_name + "/nu_translation.png"
     fig.savefig(fig_name)
 
 

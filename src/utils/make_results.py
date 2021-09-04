@@ -1,7 +1,7 @@
 import os
 import datetime
 from make_images import make_image
-from make_images import make_loss_translation
+from make_images import make_loss_translation, make_rhoi_translation, make_nu_translation
 import numpy as np
 
 
@@ -28,6 +28,8 @@ def make_results(pro, subject, model, X_star, TT, snap, UU, VV, PP, n_modes, mod
     )
     make_image(X_star, snap, dir_name, u_pred, v_pred, p_pred, u_star, v_star, p_star)
     make_loss_translation(dir_name, model)
+    make_rhoi_translation(dir_name, model)
+    make_nu_translation(dir_name, model)
 
 
 

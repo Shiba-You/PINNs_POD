@@ -27,6 +27,10 @@ class PhysicsInformedNN:
         # Initialize parameters
         self.lambda_1 = tf.Variable([0.0], dtype=tf.float32)
         self.lambda_2 = tf.Variable([0.0], dtype=tf.float32)
+
+        # track parameter estimation
+        self.rhoi_log = np.array([])       
+        self.nu_log = np.array([])       
         
         # tf placeholders and graph
         self.sess = tf.Session(config=tf.ConfigProto(allow_soft_placement=True,
@@ -137,6 +141,9 @@ class PhysicsInformedNN:
             self.loss_pred_log = np.append(self.loss_pred_log, np.array([self.sess.run(self.loss_pred, tf_dict)]))
             self.loss_phys_log = np.append(self.loss_phys_log, np.array([self.sess.run(self.loss_phys, tf_dict)]))
             self.loss_log      = np.append(self.loss_log,      np.array([self.sess.run(self.loss,      tf_dict)]))
+
+            self.rhoi_log      = np.append(self.rhoi_log,      np.array([self.sess.run(self.lambda_1,      tf_dict)]))
+            self.nu_log        = np.append(self.nu_log,        np.array([self.sess.run(self.lambda_2,      tf_dict)]))
 
             if it % 10 == 0:
                 loss_pred_val  = self.sess.run(self.loss_pred, tf_dict)
