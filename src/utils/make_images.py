@@ -111,7 +111,7 @@ def make_rhoi_translation(dir_name, model):
     print(model.rhoi_log[-1])
 
     plt.plot(model.rhoi_log,                    label = "pre")
-    plt.hlines(1., 0, len(model.rhoi_log),      label = "ref")
+    plt.hlines(1., 0, len(model.rhoi_log),      label = "ref", linestyle = ":")
     plt.legend(loc = "upper right")
     fig_name = dir_name + "/rhoi_translation.png"
     fig.savefig(fig_name)
@@ -128,7 +128,7 @@ def make_nu_translation(dir_name, model):
     print(model.nu_log[-1])
 
     plt.plot(model.nu_log,                    label = "pre")
-    plt.hlines(.01, 0, len(model.nu_log),      label = "ref")
+    plt.hlines(.01, 0, len(model.nu_log),      label = "ref", linestyle = ":")
     plt.legend(loc = "upper right")
     fig_name = dir_name + "/nu_translation.png"
     fig.savefig(fig_name)
