@@ -1,42 +1,42 @@
 
 ********************************
 ********************************
-Date           : 2021-09-04 15:51:21.141120 
+Date           : 2021-09-04 18:50:58.584531 
 project        : asymmetric_squares 
 subject        : basicNoisy 
-Itration       : 10 
+Itration       : 100000 
 random_seed    : 1234 
-train_data     : 2450 
+train_data     : 24502 
 ns_lv          : 0 
 alpha          : 0.25 
 n_modes        : 0 
 mode_th        : 0.05 
 ============Results==============
-elps           : 2.162579e+00 
-error_u        : 8.107304e-01 
-error_v        : 1.005289e+00 
-error_p        : 9.661752e-01 
-error_lambda_1 : 99.67826% 
-error_lambda_2 : 87.75529% 
+elps           : 1.702746e+02 
+error_u        : 1.530208e-02 
+error_v        : 1.988585e-02 
+error_p        : 9.318121e-01 
+error_lambda_1 : 0.48940% 
+error_lambda_2 : 15.64346% 
 ********************************
 
 ********************************
 ********************************
-Date           : 2021-09-04 15:55:13.365101 
+Date           : 2021-09-04 22:00:28.582356 
 project        : asymmetric_squares 
 subject        : basicNoisy 
-Itration       : 10 
+Itration       : 100000 
 random_seed    : 1234 
-train_data     : 2450 
+train_data     : 24502 
 ns_lv          : 0 
 alpha          : 0.25 
 n_modes        : 0 
 mode_th        : 0.05 
 ============Results==============
-elps           : 8.668845e-01 
-error_u        : 7.844597e-01 
-error_v        : 1.022926e+00 
-error_p        : 8.498092e-01 
-error_lambda_1 : 99.71930% 
-error_lambda_2 : 83.96173% 
+elps           : 1.431359e+02 
+error_u        : 1.530208e-02 
+error_v        : 1.988585e-02 
+error_p        : 9.318121e-01 
+error_lambda_1 : 0.48940% 
+error_lambda_2 : 15.64346% 
 ********************************

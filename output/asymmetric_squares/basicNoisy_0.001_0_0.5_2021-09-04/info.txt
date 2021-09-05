@@ -1,0 +1,42 @@
+
+********************************
+********************************
+Date           : 2021-09-04 18:52:52.122213 
+project        : asymmetric_squares 
+subject        : basicNoisy 
+Itration       : 100000 
+random_seed    : 1234 
+train_data     : 24502 
+ns_lv          : 0 
+alpha          : 0.5 
+n_modes        : 0 
+mode_th        : 0.05 
+============Results==============
+elps           : 1.714200e+02 
+error_u        : 1.223738e-02 
+error_v        : 2.175781e-02 
+error_p        : 1.950682e+00 
+error_lambda_1 : 0.34925% 
+error_lambda_2 : 16.98704% 
+********************************
+
+********************************
+********************************
+Date           : 2021-09-04 22:01:49.977779 
+project        : asymmetric_squares 
+subject        : basicNoisy 
+Itration       : 100000 
+random_seed    : 1234 
+train_data     : 24502 
+ns_lv          : 0 
+alpha          : 0.5 
+n_modes        : 0 
+mode_th        : 0.05 
+============Results==============
+elps           : 1.441226e+02 
+error_u        : 1.223738e-02 
+error_v        : 2.175781e-02 
+error_p        : 1.950682e+00 
+error_lambda_1 : 0.34925% 
+error_lambda_2 : 16.98704% 
+********************************
