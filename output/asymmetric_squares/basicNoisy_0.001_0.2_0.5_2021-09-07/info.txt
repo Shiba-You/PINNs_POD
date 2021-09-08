@@ -1,0 +1,21 @@
+
+********************************
+********************************
+Date           : 2021-09-07 16:57:12.344324 
+project        : asymmetric_squares 
+subject        : basicNoisy 
+Itration       : 100000 
+random_seed    : 123 
+train_data     : 24502 
+ns_lv          : 0.2 
+alpha          : 0.5 
+n_modes        : 0 
+mode_th        : 0.05 
+============Results==============
+elps           : 1.437998e+02 
+error_u        : 1.235851e-01 
+error_v        : 2.288563e-01 
+error_p        : 3.366229e+00 
+error_lambda_1 : 3.73620% 
+error_lambda_2 : 19.84387% 
+********************************
