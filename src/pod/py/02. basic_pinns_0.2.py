@@ -30,12 +30,15 @@ mode_th : 各モード諸条件の上位何%を教師データ候補群とする
 pro = "circle"
 path = "../../../data/{}/".format(pro)
 
+data_form = False
+
 layers = [3] + 8 * [20] + [2]
 Itration = 2*10**5
 rs = 1234
 N_train = .002
 
 ns_lv = 0
+
 
 n_modes = 0
 subject = "UU"
@@ -49,12 +52,12 @@ tf.set_random_seed(rs)
 
 
 # %%
-X_star, x_train, y_train, t_train, u_train, v_train, TT, UU, VV, PP = make_data(path=path, N_train=N_train, n_modes=n_modes, subject=subject, mode_th=mode_th)
+X_star, x_train, y_train, t_train, u_train, v_train, TT, UU, VV, PP = make_data(path=path, ns_lv=ns_lv, N_train=N_train, n_modes=n_modes, subject=subject, mode_th=mode_th, data_form=data_form)
 
 
 # %%
 t1 = time.time()
-model = PhysicsInformedNN(x_train, y_train, t_train, u_train, v_train, layers,debug)
+model = PhysicsInformedNN(x_train, y_train, t_train, u_train, v_train, layers, debug)
 model.train(Itration)
 t2 = time.time()
 elps = (t2 - t1) / 60.

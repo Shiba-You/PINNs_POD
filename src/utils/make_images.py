@@ -149,12 +149,22 @@ def test_images(X_star, snap, dir_name, u_star, v_star, p_star):
     V_star = griddata(X_star, v_star.flatten(), (X, Y), method='cubic')
     P_star = griddata(X_star, p_star.flatten(), (X, Y), method='cubic')
     
-    u_star_min = str(round(np.amin(u_star), 3))
-    u_star_max = str(round(np.amax(u_star), 3))
-    v_star_min = str(round(np.amin(v_star), 3))
-    v_star_max = str(round(np.amax(v_star), 3))
-    p_star_min = str(round(np.amin(p_star), 3))
-    p_star_max = str(round(np.amax(p_star), 3))
+    u_star_min = str(round(np.amin(u_star), 30))
+    u_star_max = str(round(np.amax(u_star), 30))
+    v_star_min = str(round(np.amin(v_star), 30))
+    v_star_max = str(round(np.amax(v_star), 30))
+    p_star_min = str(round(np.amin(p_star), 30))
+    p_star_max = str(round(np.amax(p_star), 30))
+
+    print(u_star)
+    print(v_star)
+    print(p_star)
+    print(u_star_min)
+    print(u_star_max)
+    print(v_star_min)
+    print(v_star_max)
+    print(p_star_min)
+    print(p_star_max)
     
     # 2D表示用
     im = grid[0].pcolor(X, Y, U_star, cmap='coolwarm', norm=Normalize(vmin=u_star_min, vmax=u_star_max))

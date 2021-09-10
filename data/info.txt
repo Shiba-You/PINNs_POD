@@ -1,0 +1,17 @@
+01:
+    nu          : 1e-2
+    rho         : 1
+
+02:
+    nu          : 1e-2
+    rho         : 1
+
+03:
+    resolution  : [99 * 50]
+    nu          : 1e-2
+    rho         : 1
+
+04:
+    resolution  : [99 * 50]
+    nu          : 1e-6
+    rho         : 1e+3
