@@ -38,6 +38,7 @@ rs = 1234
 N_train = .007
 
 ns_lv = 0
+alpha = .5
 
 n_modes = 0
 subject = "basic"
@@ -56,7 +57,7 @@ X_star, x_train, y_train, t_train, u_train, v_train, TT, UU, VV, PP = make_data(
 
 # %%
 t1 = time.time()
-model = PhysicsInformedNN(x_train, y_train, t_train, u_train, v_train, layers, debug)
+model = PhysicsInformedNN(x_train, y_train, t_train, u_train, v_train, layers, debug, alpha)
 model.train(Itration)
 t2 = time.time()
 elps = (t2 - t1) / 60.
@@ -65,7 +66,7 @@ send_line('解析終了')
 
 
 # %%
-make_results(pro, subject, model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs)
+make_results(pro, subject, model, X_star, TT, snap, UU, VV, PP, n_modes, mode_th, N_train, Itration, elps, rs, ns_lv, alpha)
 
 
 # %%

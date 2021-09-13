@@ -1,0 +1,63 @@
+
+********************************
+********************************
+Date           : 2021-09-10 14:55:17.530952 
+project        : 04_circle_water 
+subject        : UU 
+Itration       : 200000 
+random_seed    : 1234 
+train_data     : 26532 
+ns_lv          : 0 
+alpha          : 0.5 
+n_modes        : 0 
+mode_th        : 0.05 
+============Results==============
+elps           : 3.344196e+00 
+error_u        : 5.682723e-01 
+error_v        : 3.285329e+00 
+error_p        : 3.039906e+07 
+error_lambda_1 : 100.91058% 
+error_lambda_2 : 0.88838% 
+********************************
+
+********************************
+********************************
+Date           : 2021-09-10 15:01:19.007217 
+project        : 04_circle_water 
+subject        : UU 
+Itration       : 200000 
+random_seed    : 1234 
+train_data     : 26532 
+ns_lv          : 0 
+alpha          : 0.5 
+n_modes        : 0 
+mode_th        : 0.05 
+============Results==============
+elps           : 3.465025e+00 
+error_u        : 5.682723e-01 
+error_v        : 3.285329e+00 
+error_p        : 3.039906e+07 
+error_lambda_1 : 100.91058% 
+error_lambda_2 : 0.88838% 
+********************************
+
+********************************
+********************************
+Date           : 2021-09-10 22:10:26.164444 
+project        : 04_circle_water 
+subject        : UU 
+Itration       : 200000 
+random_seed    : 1234 
+train_data     : 26532 
+ns_lv          : 0 
+alpha          : 0.5 
+n_modes        : 0 
+mode_th        : 0.05 
+============Results==============
+elps           : 4.085820e+02 
+error_u        : 3.718083e-01 
+error_v        : 1.140041e+00 
+error_p        : 1.333893e+08 
+error_lambda_1 : 88.74989% 
+error_lambda_2 : 95.33107% 
+********************************

@@ -158,9 +158,9 @@ class PhysicsInformedNN:
                     print(".\n", end="")
                 else:
                     print(".", end="")
-            if loss_val < tol:
-                print(">>>>> program terminating with the loss reaching its tolerance.")
-                break
+            # if loss_val < tol:
+            #     print(">>>>> program terminating with the loss reaching its tolerance.")
+            #     break
                 
         
         # self.optimizer.minimize(self.sess,
